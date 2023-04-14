@@ -1,0 +1,18 @@
+name: Pipelines & Docker
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  run_pipelines:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker compose build
+    - name: Run the Docker container
+      run: docker compose up -d
+    - name: Take pipelines logs
+      run: docker-compose logs pipelines
+  
